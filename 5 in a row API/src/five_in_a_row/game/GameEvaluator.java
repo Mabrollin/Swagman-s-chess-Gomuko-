@@ -138,10 +138,10 @@ public class GameEvaluator {
 
     int getOpps(int rowSize, Mark mark) {
         int opps = 0;
-        opps += getOpps(rowSize - 1, mark, 1, 0); // Horizontal
-        opps += getOpps(rowSize - 1, mark, 0, 1); // Vertical
-        opps += getOpps(rowSize - 1, mark, 1, 1); // left-Diagonal
-        opps += getOpps(rowSize - 1, mark, 1, -1); // right-Diagonal
+        opps += getOpps(rowSize, mark, 1, 0); // Horizontal
+        opps += getOpps(rowSize, mark, 0, 1); // Vertical
+        opps += getOpps(rowSize, mark, 1, 1); // left-Diagonal
+        opps += getOpps(rowSize, mark, 1, -1); // right-Diagonal
         return opps;
     }
 
@@ -150,14 +150,19 @@ public class GameEvaluator {
         for (int x = 0; x < gameBoard.size() - incX * (rowSize + 2); x++) {
             for (int y = (incY == -1 ? 1 : 0) * (rowSize + 2); y < gameBoard.size() - (incY == 1 ? 1 : 0) * (rowSize + 2); y++) {
                 boolean isOpp = true;
-                isOpp = isOpp && gameBoard.equalsAt(x, y, Mark.EMPTY);
-                for (int i = 1; i < rowSize; i++) {
+                boolean first, last;
+                int index = 0;
+                if (first = gameBoard.equalsAt(x, y, Mark.EMPTY)) {
+                    index++;
+                }
+
+                for (int i = index; i < rowSize; i++) {
                     isOpp = isOpp && gameBoard.equalsAt(x + incX * i, y + incY * i, mark);
                 }
-                isOpp = isOpp && gameBoard.equalsAt(x + incX * (rowSize + 2), y + incY * (rowSize + 2), Mark.EMPTY);
+                last = gameBoard.equalsAt(x + incX * (rowSize + 2), y + incY * (rowSize + 2), Mark.EMPTY);
 
                 if (isOpp) {
-                    opps++;
+                    opps += (first ? 1 : 0) + (last ? 1 : 0);
                 }
             }
         }

@@ -70,7 +70,8 @@ public class Game {
     }
 
     public void start() {
-        currentPlayer = player1;
+        currentPlayer = player2;
+
     }
 
     public void setPlayer(Player player) {

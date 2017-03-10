@@ -5,9 +5,12 @@
  */
 package five_in_a_row.player;
 
-import five_in_a_row.game.Board;
 import five_in_a_row.game.Game;
 import five_in_a_row.game.Mark;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.MIN_VALUE;
 
 /**
  *
@@ -36,14 +39,15 @@ public class Computer implements Player {
         return mark;
     }
 
-    private final int[] rowValues = {0, 1, 5, 100};
+    private final int[] rowValues = {1, 5, 20, 500};
 
     private int evaluateState(Game game, Mark mark) {
-        if(game.isWinner(mark))
+        if (game.isWinner(mark)) {
             return Integer.MAX_VALUE;
+        }
         int[] rows = game.getOpps(mark);
         int value = 0;
-        for (int i = 1; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             value += rowValues[i] * rows[i];
         }
         return value;
@@ -53,50 +57,79 @@ public class Computer implements Player {
     private int minimax(Game game, int alpha, int beta, int depth, boolean searchMax) {
         if (depth <= 0) {
             //utifrån vem ska man evaluera!?
-            return evaluateState(game, searchMax ? oppMark : mark);
-        } else if (searchMax) {
-            int bestValue = Integer.MIN_VALUE;
-            for (int[] possibleMove : game.getEmptySlots()) {
+            int score = evaluateState(game, searchMax ? oppMark : mark);
+            int oppScore = evaluateState(game, searchMax ? mark : oppMark);
 
-                game.pushMove(possibleMove, mark);
-                bestValue = Math.max(bestValue, minimax(game, alpha, beta, depth - 1, !searchMax));
-                game.undoMove();
-                //alpha pruning, beta cut-off
-                alpha = Math.max(alpha, bestValue);
-                if (beta <= alpha) {
-                    break;
-                }
-
-            }
-            return bestValue;
-        } else {
-            int bestValue = Integer.MAX_VALUE;
-            for (int[] possibleMove : game.getEmptySlots()) {
-
-                game.pushMove(possibleMove, oppMark);
-                bestValue = Math.min(bestValue, minimax(game, alpha, beta, depth - 1, !searchMax));
-                game.undoMove();
-                //beta pruning, alpha cutt-off
-                beta = Math.min(beta, bestValue);
-                if (beta <= alpha) {
-                    break;
-                }
-
-            }
-            return bestValue;
+            return score;
         }
+        int bestValue = searchMax ? MIN_VALUE : MAX_VALUE;
+        for (int[] possibleMove : game.getEmptySlots()) {
+
+            game.pushMove(possibleMove, mark);
+            int newValue = Math.max(bestValue, minimax(game, alpha, beta, depth - 1, !searchMax));
+            bestValue = searchMax ? max(bestValue, newValue) : min(bestValue, newValue);
+            game.undoMove();
+            //alpha pruning, beta cut-off
+            if (searchMax) {
+                alpha = Math.max(alpha, bestValue);
+            } else {
+                beta = min(beta, bestValue);
+            }
+            if (beta <= alpha) {
+                break;
+            }
+
+        }
+        return bestValue;
+
+//        } else if (searchMax) {
+//            int bestValue = Integer.MIN_VALUE;
+//            for (int[] possibleMove : game.getEmptySlots()) {
+//                
+//                game.pushMove(possibleMove, mark);
+//                bestValue = Math.max(bestValue, minimax(game, alpha, beta, depth - 1, !searchMax));
+//                game.undoMove();
+//                //alpha pruning, beta cut-off
+//                alpha = Math.max(alpha, bestValue);
+//                if (beta <= alpha) {
+//                    break;
+//                }
+//                
+//            }
+//            return bestValue;
+//        } else {
+//            int bestValue = Integer.MAX_VALUE;
+//            for (int[] possibleMove : game.getEmptySlots()) {
+//                
+//                game.pushMove(possibleMove, oppMark);
+//                bestValue = Math.min(bestValue, minimax(game, alpha, beta, depth - 1, !searchMax));
+//                game.undoMove();
+//                //beta pruning, alpha cutt-off
+//                beta = Math.min(beta, bestValue);
+//                if (beta <= alpha) {
+//                    break;
+//                }
+//                
+//            }
+//            return bestValue;
+//    }
     }
 
-    //bryt bort board, använd possible moves istället
+    /**
+     *
+     * @param depth of Minimax
+     * @param game in wich to check
+     * @return coors in game of the best move from evaluation
+     */
     private int[] getBestEvalMove(int depth, Game game) {
         int bestValue = Integer.MIN_VALUE;
-        int[] bestMove = {-1, -1};
+        int[] bestMove = null;
         for (int[] possibleMove : game.getEmptySlots()) {
 
             game.pushMove(possibleMove, mark);
             int newValue = minimax(game, Integer.MIN_VALUE, Integer.MAX_VALUE, depth, false);
             game.undoMove();
-            if (newValue > bestValue) {
+            if (newValue >= bestValue) {
                 bestValue = newValue;
                 bestMove[0] = possibleMove[0];
                 bestMove[1] = possibleMove[1];
@@ -106,8 +139,4 @@ public class Computer implements Player {
         return bestMove;
     }
 
-    // ful men funkar
-    private Mark otherMark(Mark mark) {
-        return mark.equals(this.mark) ? this.oppMark : this.mark;
-    }
 }
