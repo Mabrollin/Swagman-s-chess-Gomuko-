@@ -69,12 +69,16 @@ public class Computer implements Player {
             int newValue = Math.max(bestValue, minimax(game, alpha, beta, depth - 1, !searchMax));
             bestValue = searchMax ? max(bestValue, newValue) : min(bestValue, newValue);
             game.undoMove();
-            //alpha pruning, beta cut-off
+            
+            //alpha-beta pruning
             if (searchMax) {
+                //best reached max in branch
                 alpha = Math.max(alpha, bestValue);
             } else {
+                //best reached min in branch
                 beta = min(beta, bestValue);
             }
+            //
             if (beta <= alpha) {
                 break;
             }

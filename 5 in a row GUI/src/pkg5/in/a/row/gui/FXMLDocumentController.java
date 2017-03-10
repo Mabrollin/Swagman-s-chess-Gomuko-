@@ -20,7 +20,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class FXMLDocumentController implements Initializable, Player {
 
-    private static final int SIZE = 3;
+    private static final int SIZE = 11;
     @FXML
     private AnchorPane mainPane;
 

@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/src/five_in_a_row/player/User.java</file>
-            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/src/five_in_a_row/player/Computer.java</file>
-            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/src/five_in_a_row/game/Game.java</file>
-            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/src/five_in_a_row/game/GameEvaluator.java</file>
-            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/src/five_in_a_row/game/Board.java</file>
+            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/5%20in%20a%20row%20API/src/five_in_a_row/game/GameEvaluator.java</file>
+            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/5%20in%20a%20row%20API/src/five_in_a_row/game/Game.java</file>
+            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/5%20in%20a%20row%20API/src/five_in_a_row/player/Player.java</file>
+            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/5%20in%20a%20row%20API/src/five_in_a_row/player/Computer.java</file>
+            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/5%20in%20a%20row%20API/src/five_in_a_row/game/Board.java</file>
+            <file>file:/C:/Users/marbro02/Documents/Skola/5%20in%20a%20row/5%20in%20a%20row%20API/src/five_in_a_row/game/Mark.java</file>
         </group>
     </open-files>
 </project-private>
