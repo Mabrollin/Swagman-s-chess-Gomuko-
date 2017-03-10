@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="5 in a row GUI.jnlp">
+  <information>
+    <title>5 in a row GUI</title>
+    <vendor>MARBRO02</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="lib\5_in_a_row.jar" size="20117" download="eager" />
+    <jar href="lib\Compiler.jar" size="39344" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="5 in a row GUI" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="pkg5.in.a.row.gui.InARowGUI"  name="5 in a row GUI" />
+  <update check="always"/>
+</jnlp>
